@@ -22,33 +22,53 @@ class AffirmationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> affirmations = [
+      {
+        'image': 'assets/images/view1.jpg',
+        'text': 'Why fit in when you were born to stand out?',
+      },
+      {
+        'image': 'assets/images/view2.jpg',
+        'text': 'Be yourself; everyone else is already taken.',
+      },
+      {
+        'image': 'assets/images/view3.jpg',
+        'text': "Despite everything, it's still you.",
+      },
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Affirmations'),
         centerTitle: true,
       ),
-      body: Padding(
+      body: ListView.builder(
         padding: const EdgeInsets.all(16),
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                height: 200,
-                width: double.infinity,
-                color: Colors.grey.shade300,
-                child: const Icon(Icons.image, size: 80),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(16),
-                child: Text(
-                  'Placeholder',
-                  style: TextStyle(fontSize: 20),
+        itemCount: affirmations.length,
+        itemBuilder: (context, index) {
+          final affirmation = affirmations[index];
+
+          return Card(
+            margin: const EdgeInsets.only(bottom: 16),
+            child: Column(
+              children: [
+                Image.asset(
+                  affirmation['image']!,
+                  height: 200,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
-              ),
-            ],
-          ),
-        ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    affirmation['text']!,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
